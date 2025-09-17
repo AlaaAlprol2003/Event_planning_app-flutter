@@ -55,10 +55,10 @@ class ThemeManager {
           borderRadius: BorderRadiusGeometry.circular(16.r),
         ),
         textStyle: GoogleFonts.inter(
-        fontSize: 20,
-        fontWeight: FontWeight.w500,
-        color: ColorsManager.white,
-      ),
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: ColorsManager.white,
+        ),
       ),
     ),
     textTheme: TextTheme(
@@ -67,7 +67,15 @@ class ThemeManager {
         fontWeight: FontWeight.w500,
         color: ColorsManager.black1c,
       ),
-
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(color: ColorsManager.blue, width: 1),
+        padding: REdgeInsets.symmetric(vertical: 18.h),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+      ),
     ),
   );
   static final ThemeData dark = ThemeData();
