@@ -1,9 +1,10 @@
 // ignore_for_file: body_might_complete_normally_nullable
 
-import 'package:evently_app/features/auth/register/login/login.dart';
+import 'package:evently_app/features/auth/login/login.dart';
+
 import 'package:evently_app/features/auth/register/register.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
+
 
 class RoutesManager {
   static const  String register = "/register";
