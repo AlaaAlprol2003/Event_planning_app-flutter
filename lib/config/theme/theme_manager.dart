@@ -16,6 +16,24 @@ class ThemeManager {
       ),
       centerTitle: true,
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: ColorsManager.white,
+      unselectedItemColor: ColorsManager.white,
+    ),
+    bottomAppBarTheme: BottomAppBarTheme(
+      color: ColorsManager.blue,
+      shape: CircularNotchedRectangle(),
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorsManager.blue,
+      shape: StadiumBorder(
+        side: BorderSide(color: ColorsManager.white, width: 4.w),
+      ),
+    ),
+
     inputDecorationTheme: InputDecorationTheme(
       labelStyle: GoogleFonts.inter(
         fontSize: 16,
