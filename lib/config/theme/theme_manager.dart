@@ -85,6 +85,26 @@ class ThemeManager {
         fontWeight: FontWeight.w500,
         color: ColorsManager.black1c,
       ),
+      bodyMedium: GoogleFonts.inter(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w400,
+        color: ColorsManager.whiteBlue,
+      ),
+      bodyLarge: GoogleFonts.inter(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: ColorsManager.whiteBlue,
+      ),
+      headlineSmall: GoogleFonts.inter(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.bold,
+        color: ColorsManager.blue,
+      ),
+      titleSmall: GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: ColorsManager.black1c,
+      ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
@@ -93,6 +113,13 @@ class ThemeManager {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16.r),
         ),
+      ),
+    ),
+    cardTheme: CardThemeData(
+      color: ColorsManager.whiteBlue,
+      margin: REdgeInsets.all(8),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeometry.circular(8.r),
       ),
     ),
   );
