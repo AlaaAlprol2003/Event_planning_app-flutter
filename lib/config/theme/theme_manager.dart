@@ -15,6 +15,13 @@ class ThemeManager {
         color: ColorsManager.blue,
       ),
       centerTitle: true,
+      iconTheme: IconThemeData(
+        color: ColorsManager.blue
+      )
+    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: ColorsManager.grey,
+      onPrimary: ColorsManager.grey,
+      onSecondary: ColorsManager.black1c
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.transparent,

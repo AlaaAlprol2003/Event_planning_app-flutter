@@ -131,6 +131,8 @@ class _RegisterState extends State<Register> {
                     ),
                     CustomTextButton(
                       title: "Login",
+                      decoration: TextDecoration.underline,
+                      fontStyle: FontStyle.italic,
                       onPressed: () {
                         Navigator.pushReplacementNamed(
                           context,

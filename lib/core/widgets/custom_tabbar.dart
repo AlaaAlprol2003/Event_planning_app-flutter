@@ -1,3 +1,4 @@
+import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/features/main_layout/home/tab_bar_item.dart';
 import 'package:evently_app/models/category_model.dart';
 import 'package:flutter/foundation.dart';
@@ -35,6 +36,7 @@ class _CustomTabbarState extends State<CustomTabbar> {
           selectedIndex = newIndex;
           setState(() {});
         },
+        overlayColor: WidgetStatePropertyAll(Colors.transparent),
         indicatorColor: Colors.transparent,
         dividerColor: Colors.transparent,
         labelPadding: REdgeInsets.symmetric(horizontal: 10.w),
