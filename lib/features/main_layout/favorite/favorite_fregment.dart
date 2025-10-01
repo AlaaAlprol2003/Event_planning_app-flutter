@@ -1,5 +1,6 @@
 import 'package:evently_app/core/resources/colors_manager.dart';
-import 'package:evently_app/core/widgets/custom_text_field.dart';
+
+
 import 'package:evently_app/core/widgets/event_item.dart';
 import 'package:evently_app/models/category_model.dart';
 import 'package:evently_app/models/event_model.dart';
@@ -17,9 +18,22 @@ class FavoriteFregment extends StatelessWidget {
         children: [
           Padding(
             padding: REdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
-            child: CustomTextField(hintText: "Search for event", prefixIcon: Icon(Icons.search,color: ColorsManager.blue,)
-            , borderColor: ColorsManager.blue, hintColor: ColorsManager.blue
-            ,)
+            child: TextField(
+              
+              decoration: InputDecoration(
+                hintText: 'Search for Event',
+                hintStyle: GoogleFonts.inter(fontSize: 20.sp,fontWeight: FontWeight.bold,color: ColorsManager.blue),
+                prefixIcon: Icon(Icons.search,color: ColorsManager.blue,),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16.r),
+                  borderSide: BorderSide(color: ColorsManager.blue,width: 1.w)
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(16.r),
+                  borderSide: BorderSide(color: ColorsManager.blue,width: 1.w)
+                )
+              ),
+            )
           ),
           Expanded(
             child: ListView.builder(

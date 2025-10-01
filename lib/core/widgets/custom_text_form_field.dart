@@ -3,21 +3,27 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
-    required this.labelTitle,
+     this.labelTitle,
     this.prefixIcon,
     this.keyboardType = TextInputType.text,
     this.suffixIcon,
     this.isObscure = false,
     required this.validator,
-    required this.controller
+    required this.controller,
+    this.hintText,
+    this.hintStyle, this.lines
   });
-  final String labelTitle;
+  final String? labelTitle;
+  final String? hintText;
+  final TextStyle? hintStyle;
   final Widget? prefixIcon;
   final TextInputType keyboardType;
   final Widget? suffixIcon;
   final bool isObscure;
   final String? Function(String?) validator;
   final TextEditingController controller;
+  final int? lines;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -27,10 +33,13 @@ class CustomTextFormField extends StatelessWidget {
       obscureText:isObscure ,
       obscuringCharacter: "*",
       keyboardType: keyboardType,
+      maxLines: lines,
       decoration: InputDecoration(
+        
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-
+        hintText: hintText,
+        hintStyle:hintStyle ,
         labelText: labelTitle,
       ),
     );

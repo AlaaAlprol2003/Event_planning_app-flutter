@@ -15,13 +15,12 @@ class ThemeManager {
         color: ColorsManager.blue,
       ),
       centerTitle: true,
-      iconTheme: IconThemeData(
-        color: ColorsManager.blue
-      )
+      iconTheme: IconThemeData(color: ColorsManager.blue),
     ),
-    colorScheme: ColorScheme.fromSeed(seedColor: ColorsManager.grey,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: ColorsManager.grey,
       onPrimary: ColorsManager.grey,
-      onSecondary: ColorsManager.black1c
+      onSecondary: ColorsManager.black1c,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.transparent,
@@ -86,6 +85,9 @@ class ThemeManager {
         ),
       ),
     ),
+    iconTheme: IconThemeData(
+      color: ColorsManager.grey
+    ),
     textTheme: TextTheme(
       bodySmall: GoogleFonts.inter(
         fontSize: 16,
@@ -112,6 +114,17 @@ class ThemeManager {
         fontWeight: FontWeight.bold,
         color: ColorsManager.black1c,
       ),
+      titleMedium: GoogleFonts.inter(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.black1c,
+      ),
+      labelSmall: GoogleFonts.inter(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.grey,
+      ),
+      
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(

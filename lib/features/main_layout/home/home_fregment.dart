@@ -96,7 +96,7 @@ class _HomeFregmentState extends State<HomeFregment> {
         ),
         Expanded(
           child: ListView.builder(
-            
+            padding: EdgeInsets.zero,
             itemBuilder: (context, index) => EventItem(
               event: EventModel(
                 category: CategoryModel.tabBarItems[2],
