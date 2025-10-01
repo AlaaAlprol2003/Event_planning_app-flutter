@@ -22,7 +22,7 @@ class _CreateEventState extends State<CreateEvent> {
   late TextEditingController _titleController;
 
   late TextEditingController _descriptionController;
-
+  
   @override
   void initState() {
     super.initState();
@@ -99,7 +99,9 @@ class _CreateEventState extends State<CreateEvent> {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Spacer(),
-                  CustomTextButton(title: "Choose Date", onPressed: () {}),
+                  CustomTextButton(title: "Choose Date", onPressed: () {
+                    showDatePicker(context: context, firstDate: DateTime.now(), lastDate: DateTime.now().add(Duration(days: 365)));
+                  }),
                 ],
               ),
               SizedBox(height: 8.h),
@@ -115,7 +117,9 @@ class _CreateEventState extends State<CreateEvent> {
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
                   Spacer(),
-                  CustomTextButton(title: "Choose Time", onPressed: () {}),
+                  CustomTextButton(title: "Choose Time", onPressed: () {
+                    showTimePicker(context: context, initialTime: TimeOfDay.now());
+                  }),
                 ],
               ),
               SizedBox(height: 16.h),

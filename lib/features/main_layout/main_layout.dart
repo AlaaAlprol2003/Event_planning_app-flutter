@@ -38,6 +38,7 @@ class _MainLayoutState extends State<MainLayout> {
     return BottomAppBar(
       notchMargin: 5,
       child: BottomNavigationBar(
+        
         selectedFontSize: 12.sp,
         unselectedFontSize: 12.sp,
         onTap: _onTap,
