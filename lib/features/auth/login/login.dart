@@ -5,6 +5,7 @@ import 'package:evently_app/core/routes_manager/routes_manager.dart';
 import 'package:evently_app/core/widgets/custom_filled_button.dart';
 import 'package:evently_app/core/widgets/custom_text_button.dart';
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
+import 'package:evently_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,6 +39,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations appLocalizations =  AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -57,13 +59,14 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 24.h),
                   CustomTextFormField(
                     prefixIcon: Icon(Icons.email),
-                    labelTitle: "Email",
+                    labelTitle: appLocalizations.email,
                     validator: Validators.emailValidator,
                     controller: _emailController,
                   ),
                   SizedBox(height: 16.h),
                   CustomTextFormField(
                     isObscure: securePassword,
+
 
                     prefixIcon: Icon(Icons.lock),
                     suffixIcon: IconButton(
@@ -74,7 +77,7 @@ class _LoginState extends State<Login> {
                             : Icons.visibility,
                       ),
                     ),
-                    labelTitle: "Password",
+                    labelTitle: appLocalizations.password,
                     validator: Validators.passwordValidator,
                     controller: _passwordController,
                   ),
@@ -82,22 +85,29 @@ class _LoginState extends State<Login> {
                   Align(
                     alignment: Alignment.centerRight,
                     child: CustomTextButton(
-                      title: "Forget Password?",
+                      title: appLocalizations.forget_password,
+                      decoration: TextDecoration.underline,
+                      fontStyle: FontStyle.italic,
                       onPressed: () {},
                     ),
                   ),
                   SizedBox(height: 24.h),
-                  CustomFilledButton(text: "Login", onpress: () {}),
+                  CustomFilledButton(text: appLocalizations.login, onpress: () {
+                    Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+                  }),
                   SizedBox(height: 24.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Don't Have Account ?  ",
+                       "${ appLocalizations.donot_have_account}  ",
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       CustomTextButton(
-                        title: "Create Account",
+                        title: appLocalizations.create_account,
+
+                        decoration: TextDecoration.underline,
+                      fontStyle: FontStyle.italic,
                         onPressed: () {
                           Navigator.pushReplacementNamed(
                             context,
@@ -119,7 +129,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                       Text(
-                        "Or",
+                        appLocalizations.or,
                         style: GoogleFonts.inter(
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
@@ -146,7 +156,7 @@ class _LoginState extends State<Login> {
                         Image.asset(ImageAssets.googleIcon),
                         SizedBox(width: 5.w),
                         Text(
-                          "Login With Google",
+                          appLocalizations.login_with_google,
                           style: GoogleFonts.inter(
                             fontSize: 20,
                             fontWeight: FontWeight.w500,

@@ -1,12 +1,16 @@
+import 'package:evently_app/config/providers/lang_provider_config.dart';
+import 'package:evently_app/config/providers/theme_provider_config.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/widgets/custom_tabbar.dart';
 import 'package:evently_app/core/widgets/event_item.dart';
+import 'package:evently_app/l10n/app_localizations.dart';
 
 import 'package:evently_app/models/category_model.dart';
 import 'package:evently_app/models/event_model.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class HomeFregment extends StatefulWidget {
   const HomeFregment({super.key});
@@ -19,6 +23,10 @@ class _HomeFregmentState extends State<HomeFregment> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+    LanagugeProvider lanagugeProvider = Provider.of<LanagugeProvider>(context);
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+
     return Column(
       children: [
         Container(
@@ -26,7 +34,9 @@ class _HomeFregmentState extends State<HomeFregment> {
 
           width: double.infinity,
           decoration: BoxDecoration(
-            color: ColorsManager.blue,
+            color: themeProvider.isDark
+                ? ColorsManager.darkBlue
+                : ColorsManager.blue,
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(24.r)),
           ),
           child: Column(
@@ -36,7 +46,7 @@ class _HomeFregmentState extends State<HomeFregment> {
                   Column(
                     children: [
                       Text(
-                        "Welcome Back ✨",
+                        "${appLocalizations.welcome_message} ✨",
                         style: Theme.of(context).textTheme.bodyMedium,
                       ),
 
@@ -63,9 +73,28 @@ class _HomeFregmentState extends State<HomeFregment> {
                   Spacer(),
                   Row(
                     children: [
-                      IconButton(onPressed: (){}, icon: Icon (Icons.light_mode, color: ColorsManager.whiteBlue)),
+                      IconButton(
+                        onPressed: () {
+                          themeProvider.changeAppTheme(
+                            themeProvider.isDark
+                                ? ThemeMode.light
+                                : ThemeMode.dark,
+                          );
+                        },
+                        icon: Icon(
+                          themeProvider.isDark
+                              ? Icons.dark_mode
+                              : Icons.light_mode,
+                          color: ColorsManager.whiteBlue,
+                        ),
+                      ),
                       SizedBox(width: 12.w),
                       GestureDetector(
+                        onTap: () {
+                          lanagugeProvider.changeAppLanaguge(
+                            lanagugeProvider.isEnglish ? "ar" : "en",
+                          );
+                        },
                         child: Card(
                           color: ColorsManager.whiteBlue,
                           shape: RoundedRectangleBorder(
@@ -74,7 +103,7 @@ class _HomeFregmentState extends State<HomeFregment> {
                           child: Padding(
                             padding: REdgeInsets.all(8.0),
                             child: Text(
-                              "En",
+                              lanagugeProvider.isEnglish ? "En" : "ع",
                               style: Theme.of(context).textTheme.headlineSmall,
                             ),
                           ),
@@ -85,7 +114,7 @@ class _HomeFregmentState extends State<HomeFregment> {
                 ],
               ),
               CustomTabbar(
-                category: CategoryModel.tabBarItemsWithAll,
+                category: CategoryModel.getCategoriesWithAll(context),
                 selectedBgColor: ColorsManager.white,
                 selectedFgColor: ColorsManager.blue,
                 unSelectedBgColor: Colors.transparent,
@@ -99,18 +128,17 @@ class _HomeFregmentState extends State<HomeFregment> {
             padding: EdgeInsets.zero,
             itemBuilder: (context, index) => EventItem(
               event: EventModel(
-                category: CategoryModel.tabBarItems[2],
+                category: CategoryModel.getCategories(context)[2],
                 title: "Meeting for Updating The Development Method ",
                 description: "Meeting for Updating The Development Method ",
                 dateTime: DateTime.now(),
                 timeOfDay: TimeOfDay.now(),
               ),
             ),
-           
+
             itemCount: 20,
           ),
         ),
-        
       ],
     );
   }

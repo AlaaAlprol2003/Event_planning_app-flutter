@@ -11,7 +11,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.validator,
     required this.controller,
     this.hintText,
-    this.hintStyle, this.lines
+    this.hintStyle, this.lines = 1
   });
   final String? labelTitle;
   final String? hintText;
@@ -22,7 +22,7 @@ class CustomTextFormField extends StatelessWidget {
   final bool isObscure;
   final String? Function(String?) validator;
   final TextEditingController controller;
-  final int? lines;
+  final int lines;
 
   @override
   Widget build(BuildContext context) {

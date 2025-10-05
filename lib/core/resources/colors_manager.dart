@@ -7,4 +7,5 @@ class ColorsManager {
   static const Color black1c = Color(0xFF1C1C1C);
   static const Color whiteBlue = Color(0xFFF0F0F0);
   static const Color red = Color(0xFFFF5659);
+  static const Color darkBlue = Color(0xFF101127);
 }

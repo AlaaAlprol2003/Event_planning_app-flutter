@@ -141,5 +141,140 @@ class ThemeManager {
       ),
     ),
   );
-  static final ThemeData dark = ThemeData();
+  static final ThemeData dark = ThemeData(
+    scaffoldBackgroundColor: ColorsManager.darkBlue,
+    appBarTheme: AppBarTheme(
+      backgroundColor: ColorsManager.darkBlue,
+      titleTextStyle: GoogleFonts.roboto(
+        fontSize: 22,
+        fontWeight: FontWeight.w400,
+        color: ColorsManager.blue,
+      ),
+      centerTitle: true,
+      iconTheme: IconThemeData(color: ColorsManager.blue),
+    ),
+   
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: ColorsManager.white,
+      unselectedItemColor: ColorsManager.white,
+    ),
+    bottomAppBarTheme: BottomAppBarTheme(
+      color: ColorsManager.darkBlue,
+      shape: CircularNotchedRectangle(),
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: ColorsManager.darkBlue,
+      shape: StadiumBorder(
+        side: BorderSide(color: ColorsManager.white, width: 4.w),
+      ),
+    ),
+
+    inputDecorationTheme: InputDecorationTheme(
+      labelStyle: GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.white,
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16.r),
+        borderSide: BorderSide(color: ColorsManager.blue, width: 1.w),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16.r),
+        borderSide: BorderSide(color: ColorsManager.blue, width: 1.w),
+      ),
+      errorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16.r),
+        borderSide: BorderSide(color: ColorsManager.red, width: 1.w),
+      ),
+      focusedErrorBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16.r),
+        borderSide: BorderSide(color: ColorsManager.red, width: 1.w),
+      ),
+
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16.r),
+        borderSide: BorderSide(color: ColorsManager.red, width: 1.w),
+      ),
+      prefixIconColor: ColorsManager.white,
+      suffixIconColor: ColorsManager.white,
+    ),
+    filledButtonTheme: FilledButtonThemeData(
+      style: FilledButton.styleFrom(
+        padding: REdgeInsets.symmetric(vertical: 16),
+        backgroundColor: ColorsManager.blue,
+        foregroundColor: ColorsManager.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusGeometry.circular(16.r),
+        ),
+        textStyle: GoogleFonts.inter(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: ColorsManager.white,
+        ),
+      ),
+    ),
+    iconTheme: IconThemeData(color: ColorsManager.white),
+    textTheme: TextTheme(
+      bodySmall: GoogleFonts.inter(
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.whiteBlue,
+      ),
+      bodyMedium: GoogleFonts.inter(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w400,
+        color: ColorsManager.whiteBlue,
+      ),
+      bodyLarge: GoogleFonts.inter(
+        fontSize: 24,
+        fontWeight: FontWeight.bold,
+        color: ColorsManager.whiteBlue,
+      ),
+      headlineSmall: GoogleFonts.inter(
+        fontSize: 14.sp,
+        fontWeight: FontWeight.bold,
+        color: ColorsManager.blue,
+      ),
+      titleSmall: GoogleFonts.inter(
+        fontSize: 14,
+        fontWeight: FontWeight.bold,
+        color: ColorsManager.whiteBlue,
+      ),
+      titleMedium: GoogleFonts.inter(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.white,
+      ),
+      labelSmall: GoogleFonts.inter(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.white,
+      ),
+      labelMedium: GoogleFonts.inter(
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
+        color: ColorsManager.white,
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(color: ColorsManager.blue, width: 1),
+        padding: REdgeInsets.symmetric(vertical: 18.h),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+      ),
+    ),
+    cardTheme: CardThemeData(
+      color: ColorsManager.darkBlue,
+      margin: REdgeInsets.all(8),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusGeometry.circular(8.r),
+      ),
+    ),
+  );
 }

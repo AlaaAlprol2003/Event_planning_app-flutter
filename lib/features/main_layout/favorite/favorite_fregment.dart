@@ -2,6 +2,7 @@ import 'package:evently_app/core/resources/colors_manager.dart';
 
 
 import 'package:evently_app/core/widgets/event_item.dart';
+import 'package:evently_app/l10n/app_localizations.dart';
 import 'package:evently_app/models/category_model.dart';
 import 'package:evently_app/models/event_model.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class FavoriteFregment extends StatelessWidget {
             child: TextField(
               
               decoration: InputDecoration(
-                hintText: 'Search for Event',
+                hintText: AppLocalizations.of(context)!.search_for_event,
                 hintStyle: GoogleFonts.inter(fontSize: 20.sp,fontWeight: FontWeight.bold,color: ColorsManager.blue),
                 prefixIcon: Icon(Icons.search,color: ColorsManager.blue,),
                 enabledBorder: OutlineInputBorder(
@@ -40,7 +41,7 @@ class FavoriteFregment extends StatelessWidget {
               itemCount: 20,
               itemBuilder: (context, index) => EventItem(
                 event: EventModel(
-                  category: CategoryModel.tabBarItems[2],
+                  category: CategoryModel.getCategories(context)[2],
                   title: "Meeting for Updating The Development Method ",
                   description: "Meeting for Updating The Development Method ",
                   dateTime: DateTime.now(),

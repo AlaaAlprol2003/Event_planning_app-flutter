@@ -4,6 +4,7 @@ import 'package:evently_app/features/main_layout/favorite/favorite_fregment.dart
 import 'package:evently_app/features/main_layout/home/home_fregment.dart';
 import 'package:evently_app/features/main_layout/map/map_fregment.dart';
 import 'package:evently_app/features/main_layout/profile/profile_fregment.dart';
+import 'package:evently_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,6 +16,7 @@ class MainLayout extends StatefulWidget {
 }
 
 class _MainLayoutState extends State<MainLayout> {
+  late AppLocalizations appLocalizations;
   int selectedIndex = 0;
   List<Widget> fregments = [
     HomeFregment(),
@@ -25,6 +27,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   @override
   Widget build(BuildContext context) {
+     appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       extendBody: true,
       body: fregments[selectedIndex],
@@ -45,7 +48,7 @@ class _MainLayoutState extends State<MainLayout> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(selectedIndex == 0 ? Icons.home : Icons.home_outlined),
-            label: "Home",
+            label: appLocalizations.home,
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -53,7 +56,7 @@ class _MainLayoutState extends State<MainLayout> {
                   ? Icons.location_on
                   : Icons.location_on_outlined,
             ),
-            label: "Map",
+            label: appLocalizations.map,
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -61,13 +64,13 @@ class _MainLayoutState extends State<MainLayout> {
                   ? Icons.favorite
                   : Icons.favorite_border_outlined,
             ),
-            label: "Favorite",
+            label: appLocalizations.favorite,
           ),
           BottomNavigationBarItem(
             icon: Icon(
               selectedIndex == 3 ? Icons.person_2 : Icons.person_2_outlined,
             ),
-            label: "Profile",
+            label: appLocalizations.profile,
           ),
         ],
       ),

@@ -4,10 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DropDownMenueWidget extends StatelessWidget {
-  const DropDownMenueWidget({super.key, required this.labelTitle, required this.selectedLabel, required this.menueItems});
+  const DropDownMenueWidget({super.key, required this.labelTitle, required this.selectedLabel, required this.menueItems, this.onChange});
   final String labelTitle;
   final String selectedLabel;
   final List<String> menueItems;
+  final void Function(String?)? onChange;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -35,6 +37,9 @@ class DropDownMenueWidget extends StatelessWidget {
             Text(selectedLabel,style: GoogleFonts.inter(fontSize:20 ,fontWeight:FontWeight.bold ,color: ColorsManager.blue),),
             Spacer(),
             DropdownButton(
+              
+              dropdownColor: ColorsManager.blue,
+              iconEnabledColor: ColorsManager.blue,
               underline: Container(),
               
               items: menueItems.map((item){
@@ -42,7 +47,7 @@ class DropDownMenueWidget extends StatelessWidget {
                   value: item,
                   child: Text(item));
               }).toList(),
-               onChanged: (selected){})
+               onChanged:onChange)
           ],
         ),
         ),

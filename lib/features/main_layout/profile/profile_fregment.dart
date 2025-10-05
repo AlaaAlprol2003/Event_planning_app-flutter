@@ -1,15 +1,25 @@
+import 'dart:math';
+
+import 'package:evently_app/config/providers/lang_provider_config.dart';
+import 'package:evently_app/config/providers/theme_provider_config.dart';
+import 'package:evently_app/core/prefs_manager/prefs_providers.dart';
 import 'package:evently_app/core/resources/assets_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/features/main_layout/profile/drop_down_menue_widget.dart';
+import 'package:evently_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class ProfileFregment extends StatelessWidget {
   const ProfileFregment({super.key});
 
   @override
   Widget build(BuildContext context) {
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
+    ThemeProvider themeProvider = Provider.of<ThemeProvider>(context);
+    LanagugeProvider lanagugeProvider = Provider.of<LanagugeProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -54,17 +64,25 @@ class ProfileFregment extends StatelessWidget {
         ),
         SizedBox(height: 24.h),
         DropDownMenueWidget(
-          labelTitle: "Theme",
-          selectedLabel: "Light",
-          menueItems: ["Light", "Dark"],
+          onChange: (selectedTheme){
+            PrefsProviders.getTheme();
+            themeProvider.changeAppTheme(selectedTheme == appLocalizations.light? ThemeMode.light : ThemeMode.dark );
+            
+          },
+          labelTitle: appLocalizations.theme,
+          selectedLabel: themeProvider.isDark  ? appLocalizations.dark : appLocalizations.light,
+          menueItems: [appLocalizations.light, appLocalizations.dark],
         ),
         SizedBox(height: 16.h),
         DropDownMenueWidget(
-          labelTitle: "Lanaguge",
-          selectedLabel: "English",
+          onChange: (selectedLanaguge){
+            lanagugeProvider.changeAppLanaguge(selectedLanaguge == "English"? "en" : "ar");
+          },
+          labelTitle: appLocalizations.language,
+          selectedLabel: lanagugeProvider.isEnglish? "English":"عربى",
           menueItems: ["English", "عربى"],
         ),
-        Spacer(flex: 6,),
+        Spacer(flex: 5,),
         Padding(
           padding: REdgeInsets.symmetric(horizontal: 16.0),
           child: ElevatedButton(
@@ -83,7 +101,7 @@ class ProfileFregment extends StatelessWidget {
                 Icon(Icons.logout),
                 SizedBox(width: 8.w),
                 Text(
-                  "Logout",
+                  appLocalizations.logout,
                   style: GoogleFonts.inter(
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w400,
@@ -93,7 +111,7 @@ class ProfileFregment extends StatelessWidget {
             ),
           ),
         ),
-        Spacer(flex: 4,)
+        Spacer(flex: 5,)
       ],
     );
   }

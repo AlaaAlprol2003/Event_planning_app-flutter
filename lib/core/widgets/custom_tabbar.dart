@@ -1,7 +1,7 @@
-import 'package:evently_app/core/resources/colors_manager.dart';
+
 import 'package:evently_app/features/main_layout/home/tab_bar_item.dart';
 import 'package:evently_app/models/category_model.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
