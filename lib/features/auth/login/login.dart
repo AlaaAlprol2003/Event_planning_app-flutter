@@ -1,14 +1,21 @@
+// ignore_for_file: unused_local_variable, unused_catch_clause
+
 import 'package:evently_app/core/resources/assets_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/resources/validators.dart';
 import 'package:evently_app/core/routes_manager/routes_manager.dart';
+import 'package:evently_app/core/ui_utils/ui_utils.dart';
 import 'package:evently_app/core/widgets/custom_filled_button.dart';
 import 'package:evently_app/core/widgets/custom_text_button.dart';
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
+import 'package:evently_app/firebase/firebase_services.dart';
 import 'package:evently_app/l10n/app_localizations.dart';
+import 'package:evently_app/models/login_request.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:toastification/toastification.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -39,7 +46,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    AppLocalizations appLocalizations =  AppLocalizations.of(context)!;
+    AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SafeArea(
@@ -67,7 +74,6 @@ class _LoginState extends State<Login> {
                   CustomTextFormField(
                     isObscure: securePassword,
 
-
                     prefixIcon: Icon(Icons.lock),
                     suffixIcon: IconButton(
                       onPressed: changePasswordVisibilityState,
@@ -92,22 +98,23 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   SizedBox(height: 24.h),
-                  CustomFilledButton(text: appLocalizations.login, onpress: () {
-                    Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
-                  }),
+                  CustomFilledButton(
+                    text: appLocalizations.login,
+                    onpress: _onLoginButtonClicked,
+                  ),
                   SizedBox(height: 24.h),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                       "${ appLocalizations.donot_have_account}  ",
+                        "${appLocalizations.donot_have_account}  ",
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                       CustomTextButton(
                         title: appLocalizations.create_account,
 
                         decoration: TextDecoration.underline,
-                      fontStyle: FontStyle.italic,
+                        fontStyle: FontStyle.italic,
                         onPressed: () {
                           Navigator.pushReplacementNamed(
                             context,
@@ -181,7 +188,23 @@ class _LoginState extends State<Login> {
     });
   }
 
-  void onLoginButtonClicked() {
+  void _onLoginButtonClicked() async {
     if (_formKey.currentState?.validate() == false) return;
+    try{
+      UiUtils.showLoadingDialog(context);
+    UserCredential userCredential = await FirebaseServices.login(LoginRequest(email: _emailController.text,password: _passwordController.text));
+    UiUtils.hideLoadingDialog(context);
+    UiUtils.showToastificationBar(context, "Logged-In Successfully", ColorsManager.white, Colors.green,Icons.check_circle, ToastificationType.success);
+    Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+    }on FirebaseAuthException catch (exception){
+      UiUtils.hideLoadingDialog(context);
+      UiUtils.showToastificationBar(context, "Invalid Email or Password", Colors.white, ColorsManager.red, Icons.error, ToastificationType.error);
+    }catch(ex){
+      UiUtils.hideLoadingDialog(context);
+      UiUtils.showToastificationBar(context, "Faild To Login", Colors.white, ColorsManager.red, Icons.error, ToastificationType.error);
+      
+    }
+    
+    
   }
 }

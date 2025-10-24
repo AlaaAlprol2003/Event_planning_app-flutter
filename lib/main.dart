@@ -4,22 +4,25 @@ import 'package:evently_app/config/theme/theme_manager.dart';
 import 'package:evently_app/core/prefs_manager/prefs_providers.dart';
 import 'package:evently_app/core/routes_manager/routes_manager.dart';
 import 'package:evently_app/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- await PrefsProviders.init();
- 
+  await PrefsProviders.init();
+  await Firebase.initializeApp();
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context)=> ThemeProvider()),
-        ChangeNotifierProvider(create: (context)=> LanagugeProvider()),
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => LanagugeProvider()),
       ],
-      child: Evently()),
+      child: Evently(),
+    ),
   );
 }
 
@@ -36,7 +39,7 @@ class Evently extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: RoutesManager.login,
+        initialRoute:FirebaseAuth.instance.currentUser == null ? RoutesManager.login : RoutesManager.mainLayout,
         onGenerateRoute: RoutesManager.router,
         theme: ThemeManager.light,
         darkTheme: ThemeManager.dark,

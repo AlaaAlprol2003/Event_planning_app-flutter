@@ -1,4 +1,7 @@
+import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
@@ -27,6 +30,8 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
+      style: GoogleFonts.inter(fontSize: 16.sp,fontWeight: FontWeight.w500,color: ColorsManager.blue),
       controller: controller,
       validator: validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,

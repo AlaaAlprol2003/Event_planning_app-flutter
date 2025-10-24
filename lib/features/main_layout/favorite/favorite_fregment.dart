@@ -20,7 +20,7 @@ class FavoriteFregment extends StatelessWidget {
           Padding(
             padding: REdgeInsets.symmetric(horizontal: 16.0, vertical: 16),
             child: TextField(
-              
+              style: GoogleFonts.inter(fontSize: 16.sp,fontWeight: FontWeight.w500,color: ColorsManager.blue),
               decoration: InputDecoration(
                 hintText: AppLocalizations.of(context)!.search_for_event,
                 hintStyle: GoogleFonts.inter(fontSize: 20.sp,fontWeight: FontWeight.bold,color: ColorsManager.blue),

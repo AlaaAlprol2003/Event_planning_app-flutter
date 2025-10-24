@@ -1,20 +1,28 @@
-import 'dart:math';
+
 
 import 'package:evently_app/config/providers/lang_provider_config.dart';
 import 'package:evently_app/config/providers/theme_provider_config.dart';
 import 'package:evently_app/core/prefs_manager/prefs_providers.dart';
 import 'package:evently_app/core/resources/assets_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
+import 'package:evently_app/core/routes_manager/routes_manager.dart';
 import 'package:evently_app/features/main_layout/profile/drop_down_menue_widget.dart';
 import 'package:evently_app/l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class ProfileFregment extends StatelessWidget {
+class ProfileFregment extends StatefulWidget {
   const ProfileFregment({super.key});
 
+  @override
+  State<ProfileFregment> createState() => _ProfileFregmentState();
+}
+
+class _ProfileFregmentState extends State<ProfileFregment> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations appLocalizations = AppLocalizations.of(context)!;
@@ -95,7 +103,7 @@ class ProfileFregment extends StatelessWidget {
               ),
               iconAlignment: IconAlignment.start,
             ),
-            onPressed: () {},
+            onPressed: _logout,
             child: Row(
               children: [
                 Icon(Icons.logout),
@@ -114,5 +122,16 @@ class ProfileFregment extends StatelessWidget {
         Spacer(flex: 5,)
       ],
     );
+  }
+
+  void _logout() {
+    
+    Center(child: CircularProgressIndicator(),);
+    Future.delayed(Duration(seconds: 3));
+
+    FirebaseAuth.instance.signOut();
+    
+    
+    Navigator.pushReplacementNamed(context, RoutesManager.login);
   }
 }
