@@ -8,6 +8,7 @@ import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/routes_manager/routes_manager.dart';
 import 'package:evently_app/features/main_layout/profile/drop_down_menue_widget.dart';
 import 'package:evently_app/l10n/app_localizations.dart';
+import 'package:evently_app/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ class _ProfileFregmentState extends State<ProfileFregment> {
                   child: Column(
                     children: [
                       Text(
-                        "Alaa Ahmed",
+                        UserModel.user!.name,
                         style: GoogleFonts.inter(
                           fontSize: 24.sp,
                           fontWeight: FontWeight.bold,
@@ -56,7 +57,7 @@ class _ProfileFregmentState extends State<ProfileFregment> {
                       ),
                       SizedBox(height: 10.h),
                       Text(
-                        "alaaahmed@gmail.com",
+                       UserModel.user!.email,
                         style: GoogleFonts.inter(
                           fontSize: 16.sp,
                           fontWeight: FontWeight.w500,
@@ -125,13 +126,7 @@ class _ProfileFregmentState extends State<ProfileFregment> {
   }
 
   void _logout() {
-    
-    Center(child: CircularProgressIndicator(),);
-    Future.delayed(Duration(seconds: 3));
-
     FirebaseAuth.instance.signOut();
-    
-    
     Navigator.pushReplacementNamed(context, RoutesManager.login);
   }
 }

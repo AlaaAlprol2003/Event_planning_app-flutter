@@ -1,6 +1,6 @@
 // ignore_for_file: unused_local_variable, use_build_context_synchronously
 
-import 'dart:developer';
+
 
 import 'package:evently_app/core/resources/assets_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
@@ -13,6 +13,7 @@ import 'package:evently_app/core/widgets/custom_text_form_field.dart';
 import 'package:evently_app/firebase/firebase_services.dart';
 import 'package:evently_app/l10n/app_localizations.dart';
 import 'package:evently_app/models/register_request.dart';
+import 'package:evently_app/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -179,6 +180,8 @@ class _RegisterState extends State<Register> {
     try {
       UiUtils.showLoadingDialog(context);
       UserCredential userCredential =await FirebaseServices.register(RegisterRequest(email: _emailController.text,password: _passwordController.text));
+      UserModel user = UserModel(id: userCredential.user!.uid, name: _nameController.text, email: _emailController.text,favoriteEventsListIds: []);
+      FirebaseServices.addUserToFirestore(user);
       UiUtils.hideLoadingDialog(context);
       UiUtils.showToastificationBar(
         context,

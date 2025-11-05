@@ -3,10 +3,12 @@ import 'package:evently_app/core/routes_manager/routes_manager.dart';
 import 'package:evently_app/features/main_layout/favorite/favorite_fregment.dart';
 import 'package:evently_app/features/main_layout/home/home_fregment.dart';
 import 'package:evently_app/features/main_layout/map/map_fregment.dart';
+import 'package:evently_app/features/main_layout/map/map_provider.dart';
 import 'package:evently_app/features/main_layout/profile/profile_fregment.dart';
 import 'package:evently_app/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 class MainLayout extends StatefulWidget {
   const MainLayout({super.key});
@@ -20,7 +22,9 @@ class _MainLayoutState extends State<MainLayout> {
   int selectedIndex = 0;
   List<Widget> fregments = [
     HomeFregment(),
-    MapFregment(),
+    ChangeNotifierProvider(
+      create: (context) => MapProvider(),
+      child: MapFregment()),
     FavoriteFregment(),
     ProfileFregment(),
   ];
@@ -28,11 +32,14 @@ class _MainLayoutState extends State<MainLayout> {
   @override
   Widget build(BuildContext context) {
      appLocalizations = AppLocalizations.of(context)!;
+     double bottom = MediaQuery.of(context).viewInsets.bottom;
     return Scaffold(
+
+      
       extendBody: true,
       body: fregments[selectedIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: _buildFloatingActionButton(),
+      floatingActionButton:bottom != 0 ? null : _buildFloatingActionButton(),
       bottomNavigationBar: _buildBottomAppBar(),
     );
   }

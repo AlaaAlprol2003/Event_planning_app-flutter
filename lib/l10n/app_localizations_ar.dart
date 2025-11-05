@@ -145,4 +145,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get all => 'الكل';
+
+  @override
+  String get description_details => 'الوصف';
+
+  @override
+  String get event_details => 'تفاصيل الفعالية';
+
+  @override
+  String get update_event => 'تحديث الفعالية';
+
+  @override
+  String get edit_event => 'تعديل الفعالية';
 }

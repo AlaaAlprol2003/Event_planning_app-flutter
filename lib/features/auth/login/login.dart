@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable, unused_catch_clause
 
+
 import 'package:evently_app/core/resources/assets_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/resources/validators.dart';
@@ -11,10 +12,13 @@ import 'package:evently_app/core/widgets/custom_text_form_field.dart';
 import 'package:evently_app/firebase/firebase_services.dart';
 import 'package:evently_app/l10n/app_localizations.dart';
 import 'package:evently_app/models/login_request.dart';
+import 'package:evently_app/models/user_model.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import 'package:toastification/toastification.dart';
 
 class Login extends StatefulWidget {
@@ -46,6 +50,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
+   
     AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -193,6 +198,7 @@ class _LoginState extends State<Login> {
     try{
       UiUtils.showLoadingDialog(context);
     UserCredential userCredential = await FirebaseServices.login(LoginRequest(email: _emailController.text,password: _passwordController.text));
+    UserModel.user =await FirebaseServices.getUserFromFireStore(userCredential.user!.uid) ;
     UiUtils.hideLoadingDialog(context);
     UiUtils.showToastificationBar(context, "Logged-In Successfully", ColorsManager.white, Colors.green,Icons.check_circle, ToastificationType.success);
     Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);

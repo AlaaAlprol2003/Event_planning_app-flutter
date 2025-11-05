@@ -1,11 +1,17 @@
 // ignore_for_file: body_might_complete_normally_nullable
 
+
 import 'package:evently_app/features/auth/login/login.dart';
 
 import 'package:evently_app/features/auth/register/register.dart';
 import 'package:evently_app/features/create_event/create_event.dart';
+import 'package:evently_app/features/edit_event/edit_event.dart';
+import 'package:evently_app/features/event_details/event_details.dart';
 import 'package:evently_app/features/main_layout/main_layout.dart';
+import 'package:evently_app/features/main_layout/map/map_provider.dart';
+import 'package:evently_app/models/event_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:provider/provider.dart';
 
 
 class RoutesManager {
@@ -13,6 +19,10 @@ class RoutesManager {
   static const  String login = "/login";
   static const  String mainLayout = "/mainLayout";
   static const  String createEvent = "/ceareEvent";
+  static const  String eventDetails = "/eventDetails";
+  static const  String editEvent = "/editEvent";
+
+
   
   
 
@@ -31,6 +41,15 @@ class RoutesManager {
        case createEvent : {
         return CupertinoPageRoute(builder: (context)=> CreateEvent());
       }
+      case eventDetails : {
+       EventModel event = settings.arguments as EventModel;
+       return CupertinoPageRoute(builder: (context)=> EventDetails(event: event,));
+      }
+      case editEvent:{
+        EventModel event = settings.arguments as EventModel;
+        return CupertinoPageRoute(builder: (context)=> EditEvent(event: event));
+      }
+
     }
 
   }

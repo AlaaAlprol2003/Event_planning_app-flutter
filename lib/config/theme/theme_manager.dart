@@ -116,7 +116,7 @@ class ThemeManager {
       labelSmall: GoogleFonts.inter(
         fontSize: 16.sp,
         fontWeight: FontWeight.w500,
-        color: ColorsManager.grey,
+        color: ColorsManager.black1c,
       ),
       labelMedium: GoogleFonts.inter(
         fontSize: 20.sp,

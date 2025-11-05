@@ -44,6 +44,9 @@
     "profile":"Profile",
     "event_description":"Event Description",
     "choose_time":"Chosse Time",
-    "all":"All"
-    
+    "all":"All",
+    "description_details":"Description",
+    "event_details":" Event Details",
+    "update_event":"Update Event",
+     "edit_event":"Edit Event"
 }

@@ -44,6 +44,12 @@
     "profile":"الملف الشخصى",
     "event_description":"وصف الفعالية",
     "choose_time":"اختيار التوقيت",
-     "all":"الكل"
+     "all":"الكل",
+      "description_details":"الوصف",
+      "event_details":"تفاصيل الفعالية",
+      "update_event":"تحديث الفعالية",
+       "edit_event":"تعديل الفعالية"
+     
+     
 
 }

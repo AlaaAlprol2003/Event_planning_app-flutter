@@ -24,7 +24,7 @@ class PrefsProviders {
     prefs.setString(CacheConstant.langKey, lanaguge);
   }
 
-  static getSavedLanaguge() {
+  static String getSavedLanaguge() {
     String currentLanaguge = prefs.getString(CacheConstant.langKey) ?? "en";
     return currentLanaguge;
   }

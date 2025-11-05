@@ -145,4 +145,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get all => 'All';
+
+  @override
+  String get description_details => 'Description';
+
+  @override
+  String get event_details => ' Event Details';
+
+  @override
+  String get update_event => 'Update Event';
+
+  @override
+  String get edit_event => 'Edit Event';
 }

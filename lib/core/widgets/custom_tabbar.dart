@@ -1,4 +1,6 @@
 
+
+
 import 'package:evently_app/features/main_layout/home/tab_bar_item.dart';
 import 'package:evently_app/models/category_model.dart';
 
@@ -11,7 +13,7 @@ class CustomTabbar extends StatefulWidget {
     required this.selectedBgColor,
     required this.selectedFgColor,
     required this.unSelectedBgColor,
-    required this.unSelectedFgColor, required this.category,
+    required this.unSelectedFgColor, required this.category, this.onCategoryItemClicked, this.tabController,required this.effectiveIndex, required this.selectedIndex,
    
   });
   final Color selectedBgColor;
@@ -19,23 +21,31 @@ class CustomTabbar extends StatefulWidget {
   final Color unSelectedBgColor;
   final Color unSelectedFgColor;
   final List<CategoryModel> category;
-
+  final void Function(CategoryModel)? onCategoryItemClicked;
+  final TabController? tabController;
+  final int effectiveIndex;
+  final int selectedIndex;
+  
   @override
   State<CustomTabbar> createState() => _CustomTabbarState();
 }
 
 class _CustomTabbarState extends State<CustomTabbar> {
-  int selectedIndex = 0;
+ late int selectedIndex = widget.selectedIndex;
 
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: widget.category.length,
+      initialIndex: widget.effectiveIndex,
       child: TabBar(
         onTap: (newIndex) {
+          widget.onCategoryItemClicked?.call(widget.category[newIndex]);
           selectedIndex = newIndex;
           setState(() {});
         },
+        controller: widget.tabController,
+        
         overlayColor: WidgetStatePropertyAll(Colors.transparent),
         indicatorColor: Colors.transparent,
         dividerColor: Colors.transparent,
