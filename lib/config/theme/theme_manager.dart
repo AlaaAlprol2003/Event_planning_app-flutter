@@ -17,7 +17,7 @@ class ThemeManager {
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsManager.blue),
     ),
-   
+
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -123,6 +123,11 @@ class ThemeManager {
         fontWeight: FontWeight.bold,
         color: ColorsManager.black1c,
       ),
+      displayMedium: GoogleFonts.inter(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
+        color: ColorsManager.black1c,
+      ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
@@ -153,7 +158,7 @@ class ThemeManager {
       centerTitle: true,
       iconTheme: IconThemeData(color: ColorsManager.blue),
     ),
-   
+
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.transparent,
       elevation: 0,
@@ -257,6 +262,11 @@ class ThemeManager {
       labelMedium: GoogleFonts.inter(
         fontSize: 20.sp,
         fontWeight: FontWeight.bold,
+        color: ColorsManager.white,
+      ),
+      displayMedium: GoogleFonts.inter(
+        fontSize: 16.sp,
+        fontWeight: FontWeight.w500,
         color: ColorsManager.white,
       ),
     ),

@@ -8,7 +8,9 @@ import 'package:evently_app/features/create_event/create_event.dart';
 import 'package:evently_app/features/edit_event/edit_event.dart';
 import 'package:evently_app/features/event_details/event_details.dart';
 import 'package:evently_app/features/main_layout/main_layout.dart';
-import 'package:evently_app/features/main_layout/map/map_provider.dart';
+import 'package:evently_app/features/onboarding/onboarding_provider.dart';
+import 'package:evently_app/features/onboarding/onboarding_screen.dart';
+import 'package:evently_app/features/splash/splash_screen.dart';
 import 'package:evently_app/models/event_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +23,10 @@ class RoutesManager {
   static const  String createEvent = "/ceareEvent";
   static const  String eventDetails = "/eventDetails";
   static const  String editEvent = "/editEvent";
+  static const String  splash = "/splash";
+  static const String  onboarding = "/onboarding";
+
+
 
 
   
@@ -48,6 +54,14 @@ class RoutesManager {
       case editEvent:{
         EventModel event = settings.arguments as EventModel;
         return CupertinoPageRoute(builder: (context)=> EditEvent(event: event));
+      }
+      case splash: {
+        return CupertinoPageRoute(builder: (context)=> SplashScreen());
+      }
+      case onboarding: {
+        return CupertinoPageRoute(builder: (context)=> ChangeNotifierProvider(
+          create: (context)=> onboardingProvider(),
+          child: OnboardingScreen()));
       }
 
     }

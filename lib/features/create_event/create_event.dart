@@ -9,7 +9,6 @@ import 'package:evently_app/core/widgets/custom_tabbar.dart';
 import 'package:evently_app/core/widgets/custom_text_button.dart';
 
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
-import 'package:evently_app/features/main_layout/map/map_provider.dart';
 import 'package:evently_app/firebase/firebase_services.dart';
 import 'package:evently_app/l10n/app_localizations.dart';
 import 'package:evently_app/models/category_model.dart';
@@ -18,7 +17,6 @@ import 'package:evently_app/models/user_model.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
 class CreateEvent extends StatefulWidget {
