@@ -56,7 +56,7 @@ late  CategoryModel selectedCategory = CategoryModel.getCategoriesWithAll(contex
                         ),
       
                         Text(
-                          UserModel.user!.name,
+                          UserModel.user?.name ?? "",
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                         SizedBox(height: 8.h),

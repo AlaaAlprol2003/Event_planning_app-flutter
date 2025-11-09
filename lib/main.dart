@@ -48,7 +48,7 @@ class Evently extends StatelessWidget {
       minTextAdapt: true,
       builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-         initialRoute: RoutesManager.onboarding,
+         initialRoute: RoutesManager.splash,
         //FirebaseAuth.instance.currentUser == null
         //     ? RoutesManager.login
         //     : RoutesManager.mainLayout,

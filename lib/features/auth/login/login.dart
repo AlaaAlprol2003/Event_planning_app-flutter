@@ -1,6 +1,5 @@
 // ignore_for_file: unused_local_variable, unused_catch_clause
 
-
 import 'package:evently_app/core/resources/assets_manager.dart';
 import 'package:evently_app/core/resources/colors_manager.dart';
 import 'package:evently_app/core/resources/validators.dart';
@@ -18,6 +17,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:toastification/toastification.dart';
 
@@ -50,7 +50,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-   
     AppLocalizations appLocalizations = AppLocalizations.of(context)!;
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -161,7 +160,7 @@ class _LoginState extends State<Login> {
 
                   SizedBox(height: 24.h),
                   OutlinedButton(
-                    onPressed: () {},
+                    onPressed: _signInWithGoogle,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -195,22 +194,97 @@ class _LoginState extends State<Login> {
 
   void _onLoginButtonClicked() async {
     if (_formKey.currentState?.validate() == false) return;
-    try{
+    try {
       UiUtils.showLoadingDialog(context);
-    UserCredential userCredential = await FirebaseServices.login(LoginRequest(email: _emailController.text,password: _passwordController.text));
-    UserModel.user =await FirebaseServices.getUserFromFireStore(userCredential.user!.uid) ;
-    UiUtils.hideLoadingDialog(context);
-    UiUtils.showToastificationBar(context, "Logged-In Successfully", ColorsManager.white, Colors.green,Icons.check_circle, ToastificationType.success);
-    Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
-    }on FirebaseAuthException catch (exception){
+      UserCredential userCredential = await FirebaseServices.login(
+        LoginRequest(
+          email: _emailController.text,
+          password: _passwordController.text,
+        ),
+      );
+      UserModel.user = await FirebaseServices.getUserFromFireStore(
+        userCredential.user!.uid,
+      );
       UiUtils.hideLoadingDialog(context);
-      UiUtils.showToastificationBar(context, "Invalid Email or Password", Colors.white, ColorsManager.red, Icons.error, ToastificationType.error);
-    }catch(ex){
+      UiUtils.showToastificationBar(
+        context,
+        "Logged-In Successfully",
+        ColorsManager.white,
+        Colors.green,
+        Icons.check_circle,
+        ToastificationType.success,
+      );
+      Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+    } on FirebaseAuthException catch (exception) {
       UiUtils.hideLoadingDialog(context);
-      UiUtils.showToastificationBar(context, "Faild To Login", Colors.white, ColorsManager.red, Icons.error, ToastificationType.error);
-      
+      UiUtils.showToastificationBar(
+        context,
+        "Invalid Email or Password",
+        Colors.white,
+        ColorsManager.red,
+        Icons.error,
+        ToastificationType.error,
+      );
+    } catch (ex) {
+      UiUtils.hideLoadingDialog(context);
+      UiUtils.showToastificationBar(
+        context,
+        "Faild To Login",
+        Colors.white,
+        ColorsManager.red,
+        Icons.error,
+        ToastificationType.error,
+      );
     }
-    
-    
+  }
+
+  Future<void> _signInWithGoogle() async {
+    try {
+      GoogleSignIn googleSignIn = GoogleSignIn.instance;
+
+      googleSignIn.initialize(
+        serverClientId:
+            "424921903531-asdl37olo00gi0kpnr8dolbf1cgkv19l.apps.googleusercontent.com",
+      );
+
+      GoogleSignInAccount googleUser = await googleSignIn.authenticate();
+
+      GoogleSignInAuthentication googleAuth = googleUser.authentication;
+
+      OAuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      UserCredential userCredential = await FirebaseAuth.instance
+          .signInWithCredential(credential);
+      UserModel user = UserModel(
+        id: userCredential.user?.uid ?? "",
+        name: userCredential.user?.displayName ?? "",
+        email: userCredential.user?.email ?? "email not provided",
+        favoriteEventsListIds: [],
+      );
+      UiUtils.showLoadingDialog(context);
+      await FirebaseServices.addUserToFirestore(user);
+      UiUtils.hideLoadingDialog(context);
+     UiUtils.showToastificationBar(
+        context,
+        "Logged-In Successfully",
+        ColorsManager.white,
+        Colors.green,
+        Icons.check_circle,
+        ToastificationType.success,
+      );
+      UserModel.user = user;
+      Navigator.pushReplacementNamed(context, RoutesManager.mainLayout);
+    } catch (ex) {
+      UiUtils.showToastificationBar(
+        context,
+        ex.toString(),
+        Colors.white,
+        ColorsManager.red,
+        Icons.error,
+        ToastificationType.error,
+      );
+    }
   }
 }
