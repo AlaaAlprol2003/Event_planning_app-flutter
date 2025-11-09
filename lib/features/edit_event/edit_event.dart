@@ -128,7 +128,7 @@ class _EditEventState extends State<EditEvent> {
                 ],
               ),
               SizedBox(height: 16.h),
-              CustomOutlinedButton(),
+              CustomOutlinedButton(onChooseEventLocationClicked: (){},),
               SizedBox(height: 16.h),
               CustomFilledButton(
                 text: appLocalizations.update_event,

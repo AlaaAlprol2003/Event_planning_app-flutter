@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomOutlinedButton extends StatelessWidget {
-  const CustomOutlinedButton({super.key});
-
+  const CustomOutlinedButton({super.key, required this.onChooseEventLocationClicked, this.position});
+  final void Function() onChooseEventLocationClicked;
+  final String? position;
   @override
   Widget build(BuildContext context) {
     
     return OutlinedButton(
-      onPressed: () {},
+      onPressed: () {
+        onChooseEventLocationClicked();
+      },
       style: OutlinedButton.styleFrom(),
       child: Row(
         children: [
@@ -27,12 +30,14 @@ class CustomOutlinedButton extends StatelessWidget {
             ),
           ),
           SizedBox(width: 8.w),
-          Text(
-            "Cairo,Egypt",
-            style: TextStyle(
-              fontSize: 20.sp,
-              fontWeight: FontWeight.w500,
-              color: ColorsManager.blue,
+          Expanded(
+            child: Text(
+              position ?? "Cairo",
+              style: TextStyle(
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w500,
+                color: ColorsManager.blue,
+              ),
             ),
           ),
           Spacer(),
