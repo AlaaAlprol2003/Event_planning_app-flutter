@@ -29,7 +29,7 @@ class EventCard extends StatelessWidget {
             children: [
               Text(event.title,style: GoogleFonts.inter(fontSize: 14.sp,fontWeight: FontWeight.bold,color: ColorsManager.blue),),
               SizedBox(height: 16.h,),
-              Text("Cairo,Egypt",style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 14,fontWeight: FontWeight.w500,color: ColorsManager.black1c)),
+              Text(event.location?? "Unknown",softWrap: true,style: Theme.of(context).textTheme.bodySmall!.copyWith(fontSize: 14,fontWeight: FontWeight.w500,color: ColorsManager.black1c)),
 
             ],
           )

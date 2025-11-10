@@ -83,7 +83,7 @@ class _EventDetailsState extends State<EventDetails> {
                 ),
               ),
               SizedBox(height: 16.h,),
-              CustomOutlinedButton(onChooseEventLocationClicked: (){},),
+              CustomOutlinedButton(onChooseEventLocationClicked: (){},position: widget.event.location,),
               SizedBox(height: 16.h,),
               Container(
                 width: double.infinity,

@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class MapProvider extends ChangeNotifier {
+   bool _isDisposed = true;
 
   MapProvider(){
     getUserLocation();
@@ -27,6 +28,26 @@ class MapProvider extends ChangeNotifier {
     }
     return permissionStatus == PermissionStatus.granted;
   }
+  void animateToEventLocation(double lat, double lng) {
+    final LatLng newPosition = LatLng(lat, lng);
+    
+    mapController.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(target: newPosition, zoom: 16),
+      ),
+    );
+
+    markers.clear();
+    markers.add(
+      Marker(
+        markerId: MarkerId("event_location"),
+        infoWindow: InfoWindow(title: "Event Location"),
+        position: newPosition,
+      ),
+    );
+    
+    notifyListeners(); 
+  }
 
   _getServicePermission() async {
     bool isServiceEnabled = await location.serviceEnabled();
@@ -39,14 +60,19 @@ class MapProvider extends ChangeNotifier {
   void getUserLocation() async {
     bool isPermissionGranted = await _getUserPermission();
     if(!isPermissionGranted) return;
+    if (_isDisposed) return;
+
     bool isServiceEnabled = await _getServicePermission();
     if(!isServiceEnabled)return;
     LocationData locationData =await location.getLocation();
-    CameraPosition cameraPosition =CameraPosition(target: LatLng(locationData.latitude??0, locationData.longitude??0),
+    if (_isDisposed) return;
+    cameraPosition =CameraPosition(target: LatLng(locationData.latitude??0, locationData.longitude??0),
     zoom: 16
     );
     markers.add(Marker(markerId: MarkerId("1"),
-    infoWindow: InfoWindow(title: "My Location")));
+    infoWindow: InfoWindow(title: "My Location"),
+    position: LatLng(locationData.latitude??0, locationData.longitude??0)
+    ));
     
     mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
     notifyListeners();

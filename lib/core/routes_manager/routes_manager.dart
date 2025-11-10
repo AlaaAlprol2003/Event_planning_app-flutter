@@ -10,7 +10,6 @@ import 'package:evently_app/features/edit_event/edit_event.dart';
 import 'package:evently_app/features/event_details/event_details.dart';
 import 'package:evently_app/features/event_location/event_location.dart';
 import 'package:evently_app/features/main_layout/main_layout.dart';
-import 'package:evently_app/features/main_layout/map/map_provider.dart';
 import 'package:evently_app/features/onboarding/onboarding_provider.dart';
 import 'package:evently_app/features/onboarding/onboarding_screen.dart';
 import 'package:evently_app/features/splash/splash_screen.dart';

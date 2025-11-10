@@ -11,7 +11,6 @@ import 'package:evently_app/core/widgets/custom_text_button.dart';
 
 import 'package:evently_app/core/widgets/custom_text_form_field.dart';
 import 'package:evently_app/features/create_event/create_event_provider.dart';
-import 'package:evently_app/features/main_layout/map/map_provider.dart';
 import 'package:evently_app/firebase/firebase_services.dart';
 import 'package:evently_app/l10n/app_localizations.dart';
 import 'package:evently_app/models/category_model.dart';
@@ -216,6 +215,8 @@ class _CreateEventState extends State<CreateEvent> {
       eventID: "",
       userID: UserModel.user!.id,
       location: provider.convertedLocation ?? "Unknown"  ,
+      lat: provider.position?.latitude ?? 0,
+      lng: provider.position?.longitude ?? 0,
     );
     UiUtils.showLoadingDialog(context);
     await FirebaseServices.addEventToFireStore(event, context);

@@ -15,7 +15,7 @@ class MapFregment extends StatelessWidget {
       body: Stack(
        
         children: [
-          Expanded(
+          Positioned.fill(
             child: GoogleMap(
               initialCameraPosition: provider.cameraPosition,
               onMapCreated: (controller) {
@@ -30,7 +30,11 @@ class MapFregment extends StatelessWidget {
               alignment: Alignment.bottomLeft,
               child: SizedBox(
                 height: 100,
-                child: DisplayEvents()),
+                child: DisplayEvents(
+                  onEventCardClicked: (event){
+                    
+                  },
+                )),
             ),
           ),
         ],

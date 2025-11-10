@@ -9,6 +9,8 @@ class EventModel {
   String description;
   DateTime dateTime;
   String? location;
+  double? lat;
+  double? lng;
 
   EventModel({
     required this.category,
@@ -17,7 +19,9 @@ class EventModel {
     required this.dateTime,
     required this.eventID,
     required this.userID,
-    this.location
+    this.location,
+    this.lat,
+    this.lng
   });
 
   EventModel.fromJson(Map<String, dynamic> json, BuildContext context)
@@ -31,6 +35,8 @@ class EventModel {
         description: json["description"],
         dateTime: json["dateTime"].toDate(),
         location: json["location"] ?? "",
+        lat: json["lat"] ?? 0,
+        lng: json["lng"] ?? 0
       );
 
   Map<String, dynamic> toJson() {
@@ -42,6 +48,8 @@ class EventModel {
       "description": description,
       "dateTime": dateTime,
       "location":location,
+      "lat":lat,
+      "lng":lng,
     };
   }
 }
