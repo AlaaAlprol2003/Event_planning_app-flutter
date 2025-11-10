@@ -3,9 +3,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 
 class MapProvider extends ChangeNotifier {
-  bool _isDisposed = false;
 
-  MapProvider() {
+  MapProvider(){
     getUserLocation();
   }
 
@@ -17,12 +16,10 @@ class MapProvider extends ChangeNotifier {
 
   Location location = Location();
   late GoogleMapController mapController;
-  CameraPosition cameraPosition = CameraPosition(
-    target: LatLng(37.4220541, -122.0853242),
-
-    zoom: 17,
-  );
-  Set<Marker> markers = {};
+  CameraPosition cameraPosition = CameraPosition(target: LatLng(37.4220541, -122.0853242),
+  
+  zoom: 17);
+  Set<Marker> markers ={};
   Future<bool> _getUserPermission() async {
     PermissionStatus permissionStatus = await location.hasPermission();
     if (permissionStatus == PermissionStatus.denied) {
@@ -41,24 +38,16 @@ class MapProvider extends ChangeNotifier {
 
   void getUserLocation() async {
     bool isPermissionGranted = await _getUserPermission();
-    if (!isPermissionGranted) return;
-    if (_isDisposed) return;
+    if(!isPermissionGranted) return;
     bool isServiceEnabled = await _getServicePermission();
-    if (!isServiceEnabled) return;
-    LocationData locationData = await location.getLocation();
-    if (_isDisposed) return;
-    CameraPosition cameraPosition = CameraPosition(
-      target: LatLng(locationData.latitude ?? 0, locationData.longitude ?? 0),
-      zoom: 16,
+    if(!isServiceEnabled)return;
+    LocationData locationData =await location.getLocation();
+    CameraPosition cameraPosition =CameraPosition(target: LatLng(locationData.latitude??0, locationData.longitude??0),
+    zoom: 16
     );
-    markers.add(
-      Marker(
-        markerId: MarkerId("1"),
-        infoWindow: InfoWindow(title: "My Location"),
-        position: LatLng(locationData.latitude ?? 0, locationData.longitude ?? 0)
-      ),
-    );
-
+    markers.add(Marker(markerId: MarkerId("1"),
+    infoWindow: InfoWindow(title: "My Location")));
+    
     mapController.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
     notifyListeners();
   }

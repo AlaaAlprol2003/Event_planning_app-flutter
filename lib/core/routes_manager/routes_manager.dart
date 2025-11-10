@@ -5,9 +5,12 @@ import 'package:evently_app/features/auth/login/login.dart';
 
 import 'package:evently_app/features/auth/register/register.dart';
 import 'package:evently_app/features/create_event/create_event.dart';
+import 'package:evently_app/features/create_event/create_event_provider.dart';
 import 'package:evently_app/features/edit_event/edit_event.dart';
 import 'package:evently_app/features/event_details/event_details.dart';
+import 'package:evently_app/features/event_location/event_location.dart';
 import 'package:evently_app/features/main_layout/main_layout.dart';
+import 'package:evently_app/features/main_layout/map/map_provider.dart';
 import 'package:evently_app/features/onboarding/onboarding_provider.dart';
 import 'package:evently_app/features/onboarding/onboarding_screen.dart';
 import 'package:evently_app/features/splash/splash_screen.dart';
@@ -25,6 +28,7 @@ class RoutesManager {
   static const  String editEvent = "/editEvent";
   static const String  splash = "/splash";
   static const String  onboarding = "/onboarding";
+  static const String  eventLocation = "/eventLocation";
 
 
 
@@ -45,7 +49,9 @@ class RoutesManager {
         return CupertinoPageRoute(builder: (context)=> MainLayout());
       }
        case createEvent : {
-        return CupertinoPageRoute(builder: (context)=> CreateEvent());
+        return CupertinoPageRoute(builder: (context)=> ChangeNotifierProvider(
+          create: (context)=>CreateEventProvider() ,
+          child: CreateEvent()));
       }
       case eventDetails : {
        EventModel event = settings.arguments as EventModel;
@@ -62,6 +68,10 @@ class RoutesManager {
         return CupertinoPageRoute(builder: (context)=> ChangeNotifierProvider(
           create: (context)=> onboardingProvider(),
           child: OnboardingScreen()));
+      }
+      case eventLocation: {
+        CreateEventProvider provider = settings.arguments as CreateEventProvider;
+        return CupertinoPageRoute(builder: (context)=> EventLocation(provider: provider,));
       }
 
     }
