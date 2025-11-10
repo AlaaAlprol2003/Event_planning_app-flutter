@@ -37,7 +37,7 @@ class _CreateEventState extends State<CreateEvent> {
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
   late CategoryModel selectedCategory = CategoryModel.getCategories(context)[0];
-  
+  late CreateEventProvider provider;
  
  
   @override
@@ -59,15 +59,14 @@ class _CreateEventState extends State<CreateEvent> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations appLocalizations = AppLocalizations.of(context)!;
-     
+     provider = Provider.of<CreateEventProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(title: Text(appLocalizations.create_event), elevation: 1),
       body: SingleChildScrollView(
         child: Padding(
           padding: REdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-          child: Consumer<CreateEventProvider>(
-            builder: (context, provider,child)=>
+          child:
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -176,7 +175,7 @@ class _CreateEventState extends State<CreateEvent> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 
@@ -216,12 +215,14 @@ class _CreateEventState extends State<CreateEvent> {
       dateTime: selectedDate,
       eventID: "",
       userID: UserModel.user!.id,
-      ///location: provider.convertedLocation ?? "Unknown"  ,
+      location: provider.convertedLocation ?? "Unknown"  ,
     );
     UiUtils.showLoadingDialog(context);
     await FirebaseServices.addEventToFireStore(event, context);
-   
-    UiUtils.hideLoadingDialog(context);
+   if (!mounted) return;
+
+  
+    // UiUtils.hideLoadingDialog(context);
     UiUtils.showToastificationBar(
       context,
       "Event Created Successfully",
@@ -230,7 +231,8 @@ class _CreateEventState extends State<CreateEvent> {
       Icons.check_circle,
       ToastificationType.success,
     );
-   
-    Navigator.pop(context);
+          Navigator.pop(context);
+
+    
   }
 }
