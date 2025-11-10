@@ -86,6 +86,7 @@ class _MainLayoutState extends State<MainLayout> {
 
   FloatingActionButton _buildFloatingActionButton() {
     return FloatingActionButton(
+      
       onPressed: () {
         Navigator.pushNamed(context, RoutesManager.createEvent);
       },

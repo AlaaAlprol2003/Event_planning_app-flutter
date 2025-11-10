@@ -37,20 +37,19 @@ class _CreateEventState extends State<CreateEvent> {
   TimeOfDay selectedTime = TimeOfDay.now();
   late CategoryModel selectedCategory = CategoryModel.getCategories(context)[0];
   late CreateEventProvider provider;
- 
- 
+
   @override
   void initState() {
     super.initState();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
-    
   }
 
   @override
   void dispose() {
     _titleController.dispose();
     _descriptionController.dispose();
+    provider.dispose(); 
 
     super.dispose();
   }
@@ -58,123 +57,128 @@ class _CreateEventState extends State<CreateEvent> {
   @override
   Widget build(BuildContext context) {
     AppLocalizations appLocalizations = AppLocalizations.of(context)!;
-     provider = Provider.of<CreateEventProvider>(context);
+    provider = Provider.of<CreateEventProvider>(context);
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(title: Text(appLocalizations.create_event), elevation: 1),
       body: SingleChildScrollView(
         child: Padding(
           padding: REdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
-          child:
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: REdgeInsets.all(12.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16.r),
-                    child: Image.asset(selectedCategory.imagePath),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: REdgeInsets.all(12.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16.r),
+                  child: Image.asset(selectedCategory.imagePath),
+                ),
+              ),
+              CustomTabbar(
+                selectedIndex: 0,
+                effectiveIndex: 0,
+                onCategoryItemClicked: (category) {
+                  setState(() {
+                    selectedCategory = category;
+                  });
+                },
+                selectedBgColor: ColorsManager.blue,
+                selectedFgColor: ColorsManager.whiteBlue,
+                unSelectedBgColor: Colors.transparent,
+                unSelectedFgColor: ColorsManager.blue,
+                category: CategoryModel.getCategories(context),
+              ),
+              SizedBox(height: 16.h),
+              Text(
+                appLocalizations.title,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              SizedBox(height: 8.h),
+              CustomTextFormField(
+                hintText: appLocalizations.event_title,
+                hintStyle: Theme.of(context).textTheme.labelSmall,
+                prefixIcon: Icon(Icons.edit_document),
+                validator: (input) {},
+                controller: _titleController,
+              ),
+
+              SizedBox(height: 16.h),
+              Text(
+                appLocalizations.description,
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              SizedBox(height: 8.h),
+              CustomTextFormField(
+                hintText: appLocalizations.event_description,
+                hintStyle: Theme.of(context).textTheme.labelSmall,
+                lines: 4,
+                validator: (input) {},
+                controller: _descriptionController,
+              ),
+              SizedBox(height: 16.h),
+              Row(
+                children: [
+                  Icon(
+                    Icons.calendar_month,
+                    color: Theme.of(context).iconTheme.color,
                   ),
-                ),
-                CustomTabbar(
-                  selectedIndex: 0,
-                  effectiveIndex: 0,
-                  onCategoryItemClicked: (category) {
-                    setState(() {
-                      selectedCategory = category;
-                    });
-                  },
-                  selectedBgColor: ColorsManager.blue,
-                  selectedFgColor: ColorsManager.whiteBlue,
-                  unSelectedBgColor: Colors.transparent,
-                  unSelectedFgColor: ColorsManager.blue,
-                  category: CategoryModel.getCategories(context),
-                ),
-                SizedBox(height: 16.h),
-                Text(
-                  appLocalizations.title,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                SizedBox(height: 8.h),
-                CustomTextFormField(
-                  hintText: appLocalizations.event_title,
-                  hintStyle: Theme.of(context).textTheme.labelSmall,
-                  prefixIcon: Icon(Icons.edit_document),
-                  validator: (input) {},
-                  controller: _titleController,
-                ),
-            
-                SizedBox(height: 16.h),
-                Text(
-                  appLocalizations.description,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                SizedBox(height: 8.h),
-                CustomTextFormField(
-                  hintText: appLocalizations.event_description,
-                  hintStyle: Theme.of(context).textTheme.labelSmall,
-                  lines: 4,
-                  validator: (input) {},
-                  controller: _descriptionController,
-                ),
-                SizedBox(height: 16.h),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.calendar_month,
-                      color: Theme.of(context).iconTheme.color,
-                    ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      selectedDate.toFormattedDate,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Spacer(),
-                    CustomTextButton(
-                      title: appLocalizations.choose_date,
-                      onPressed: _selectEventDate,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 8.h),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.access_time,
-                      color: Theme.of(context).iconTheme.color,
-                    ),
-                    SizedBox(width: 4.w),
-                    Text(
-                      selectedDate.toFormattedTime,
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Spacer(),
-                    CustomTextButton(
-                      title: appLocalizations.choose_time,
-                      onPressed: _selectEventTime,
-                    ),
-                  ],
-                ),
-                SizedBox(height: 16.h),
-                CustomOutlinedButton(
-                  position: provider.convertedLocation ?? appLocalizations.choose_event_location ,
-                  onChooseEventLocationClicked: (){
-                  Navigator.pushNamed(context, RoutesManager.eventLocation,arguments: provider);
-                },),
-                SizedBox(height: 16.h),
-            
-                SizedBox(
-                  width: double.infinity,
-                  child: FilledButton(
-                    onPressed: _onAddEventClicked,
-                    child: Text(appLocalizations.add_event),
+                  SizedBox(width: 4.w),
+                  Text(
+                    selectedDate.toFormattedDate,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
+                  Spacer(),
+                  CustomTextButton(
+                    title: appLocalizations.choose_date,
+                    onPressed: _selectEventDate,
+                  ),
+                ],
+              ),
+              SizedBox(height: 8.h),
+              Row(
+                children: [
+                  Icon(
+                    Icons.access_time,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
+                  SizedBox(width: 4.w),
+                  Text(
+                    selectedDate.toFormattedTime,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  Spacer(),
+                  CustomTextButton(
+                    title: appLocalizations.choose_time,
+                    onPressed: _selectEventTime,
+                  ),
+                ],
+              ),
+              SizedBox(height: 16.h),
+              CustomOutlinedButton(
+                position:
+                    provider.convertedLocation ??
+                    appLocalizations.choose_event_location,
+                onChooseEventLocationClicked: () {
+                  Navigator.pushNamed(
+                    context,
+                    RoutesManager.eventLocation,
+                    arguments: provider,
+                  );
+                },
+              ),
+              SizedBox(height: 16.h),
+
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  onPressed: _onAddEventClicked,
+                  child: Text(appLocalizations.add_event),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      
+      ),
     );
   }
 
@@ -206,34 +210,46 @@ class _CreateEventState extends State<CreateEvent> {
 
   void _onAddEventClicked() async {
     ///CreateEventProvider provider = Provider.of<CreateEventProvider>(context,listen: false);
-    
-    EventModel event = EventModel(
-      category: selectedCategory,
-      title: _titleController.text,
-      description: _descriptionController.text,
-      dateTime: selectedDate,
-      eventID: "",
-      userID: UserModel.user!.id,
-      location: provider.convertedLocation ?? "Unknown"  ,
-      lat: provider.position?.latitude ?? 0,
-      lng: provider.position?.longitude ?? 0,
-    );
-    UiUtils.showLoadingDialog(context);
-    await FirebaseServices.addEventToFireStore(event, context);
-   if (!mounted) return;
 
-  
-    // UiUtils.hideLoadingDialog(context);
-    UiUtils.showToastificationBar(
-      context,
-      "Event Created Successfully",
-      ColorsManager.white,
-      Colors.green,
-      Icons.check_circle,
-      ToastificationType.success,
-    );
-          Navigator.pop(context);
+    try {
+      EventModel event = EventModel(
+        category: selectedCategory,
+        title: _titleController.text,
+        description: _descriptionController.text,
+        dateTime: selectedDate,
+        eventID: "",
+        userID: UserModel.user!.id,
+        location: provider.convertedLocation ?? "Unknown",
+        lat: provider.position?.latitude ?? 0,
+        lng: provider.position?.longitude ?? 0,
+      );
+      UiUtils.showLoadingDialog(context);
+      await FirebaseServices.addEventToFireStore(event, context);
+      if (!mounted) return;
 
-    
+      Navigator.pop(context);
+      Navigator.pop(context);
+
+      // UiUtils.hideLoadingDialog(context);
+      UiUtils.showToastificationBar(
+        context,
+        "Event Created Successfully",
+        ColorsManager.white,
+        Colors.green,
+        Icons.check_circle,
+        ToastificationType.success,
+      );
+    } catch (ex) {
+      if (!mounted) return;
+      Navigator.pop(context);
+      UiUtils.showToastificationBar(
+        context,
+        "Event Created Successfully",
+        ColorsManager.white,
+        Colors.green,
+        Icons.check_circle,
+        ToastificationType.success,
+      );
+    }
   }
 }

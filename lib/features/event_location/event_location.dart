@@ -23,10 +23,11 @@ class EventLocation extends StatelessWidget {
               mapType: MapType.normal,
               markers: provider.markers,
               zoomControlsEnabled: false,
-              onTap: (argument) async{
+              onTap: (argument) async {
                 provider.getEventLocation(argument);
-               await provider.convertLatLng();
-
+                await provider.convertLatLng();
+                provider.mapController?.dispose();
+                provider.mapController = null;
                 Navigator.pop(context);
               },
             ),

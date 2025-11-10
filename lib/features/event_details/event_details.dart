@@ -11,6 +11,7 @@ import 'package:evently_app/models/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 class EventDetails extends StatefulWidget {
@@ -22,8 +23,36 @@ class EventDetails extends StatefulWidget {
 }
 
 class _EventDetailsState extends State<EventDetails> {
- 
+ late CameraPosition position ;
  late String eventId = widget.event.eventID;
+ late GoogleMapController mapController;
+ late Set<Marker> markers = {};
+
+@override
+  void initState() {
+    super.initState();
+    position = CameraPosition(
+      target: LatLng(widget.event.lat ?? 0, widget.event.lng ?? 0),
+      zoom: 16,
+    );
+
+    markers = {
+      Marker(
+        markerId: const MarkerId("event_location"),
+        position: LatLng(widget.event.lat ?? 0, widget.event.lng ?? 0),
+        infoWindow: InfoWindow(
+          title: widget.event.title,
+          snippet: widget.event.location,
+        ),
+      ),
+    };
+  }
+  @override
+  void dispose() {
+    mapController.dispose(); 
+    super.dispose();
+  }
+ 
   @override
   Widget build(BuildContext context) {
     
@@ -74,7 +103,6 @@ class _EventDetailsState extends State<EventDetails> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ///SizedBox(height: 5.h,),
                         Text(widget.event.dateTime.formattedDate,style: GoogleFonts.inter(fontSize: 20.sp,fontWeight: FontWeight.w500,color: ColorsManager.blue),),
                         Text(widget.event.dateTime.toFormattedTime,style:  GoogleFonts.inter(fontSize: 20.sp,fontWeight: FontWeight.w500,color: ColorsManager.blue))
                       ],
@@ -93,7 +121,13 @@ class _EventDetailsState extends State<EventDetails> {
                   borderRadius: BorderRadius.circular(16.r),
                   
                 ),
-                child: Image.asset("assets/images/Frame 83.png",fit: BoxFit.fill,),
+                child: GoogleMap(initialCameraPosition: position,
+                markers: markers,
+                onMapCreated: (controller) {
+                  mapController = controller;
+                  mapController.animateCamera(CameraUpdate.newCameraPosition(position));
+                },
+                )
               ),
               SizedBox(height: 16.h,),
               Text(appLocalizations.event_description,style: Theme.of(context).textTheme.labelSmall),

@@ -13,7 +13,6 @@ class MapFregment extends StatelessWidget {
     MapProvider provider = Provider.of<MapProvider>(context);
     return Scaffold(
       body: Stack(
-       
         children: [
           Positioned.fill(
             child: GoogleMap(
@@ -25,16 +24,12 @@ class MapFregment extends StatelessWidget {
             ),
           ),
           Padding(
-            padding:  REdgeInsets.only(bottom: 120),
+            padding: REdgeInsets.only(bottom: 120),
             child: Align(
               alignment: Alignment.bottomLeft,
-              child: SizedBox(
-                height: 100,
-                child: DisplayEvents(
-                  onEventCardClicked: (event){
-                    
-                  },
-                )),
+              child: SizedBox(height: 100, child: DisplayEvents(onEventCardClicked: (event){
+                provider.animateToEventLocation(event.lat??0, event.lng??0);
+              },)),
             ),
           ),
         ],
